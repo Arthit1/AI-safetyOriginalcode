@@ -104,6 +104,7 @@ class Annotator:
             if label:
                 tf = max(self.lw - 1, 1)  # font thickness
                 w, h = cv2.getTextSize(label, 0, fontScale=self.lw / 3, thickness=tf)[0]  # text width, height
+                print(f"Label: {label}, Width: {w}, Height: {h}")
                 outside = p1[1] - h >= 3
                 p2 = p1[0] + w, p1[1] - h - 3 if outside else p1[1] + h + 3
                 cv2.rectangle(self.im, p1, p2, color, -1, cv2.LINE_AA)  # filled
@@ -114,6 +115,7 @@ class Annotator:
                             txt_color,
                             thickness=tf,
                             lineType=cv2.LINE_AA)
+
 
     def masks(self, masks, colors, im_gpu=None, alpha=0.5):
         """Plot masks at once.
