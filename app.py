@@ -16,7 +16,7 @@ image1 = Image.open('data/outputs/test1.jpg')
 image2 = Image.open('data/outputs/test2.jpg')
 image3 = Image.open('data/outputs/test3.jpg')
 def imageInput(device, src):
-    global counter1 , counter2
+    global counter1, counter2
     if src == 'อัปโหลดรูปภาพ':
         image_file = st.file_uploader("ตรวจสอบรูปภาพ", type=['png', 'jpeg', 'jpg'])
         col1, col2 = st.columns(2)
@@ -25,13 +25,14 @@ def imageInput(device, src):
             with col1:
                 st.image(img, caption='รูปภาพที่นำเข้ามา', use_column_width='always')
             ts = datetime.timestamp(datetime.now())
-            imgpath = os.path.join('data/uploads', str(ts)+image_file.name)
-            outputpath = os.path.join('data/outputs', os.path.basename(imgpath))
+            imgpath = os.path.join('data/uploads', str(ts) + image_file.name)
+            outputdir = 'data/outputs'  # Specify the output directory
+            os.makedirs(outputdir, exist_ok=True)  # Ensure the output directory exists
+            outputpath = os.path.join(outputdir, os.path.basename(imgpath))
             with open(imgpath, mode="wb") as f:
                 f.write(image_file.getbuffer())
 
-            #call Model prediction--
-            
+            # Call Model prediction--
             model.cuda() if device == 'cuda' else model.cpu()
             pred = model(imgpath)
             pred.render()  # render bbox in image
@@ -39,14 +40,14 @@ def imageInput(device, src):
             objects_NoHelm = ['NoHelm']
             num_Helm = sum(1 for obj in pred.names[0] if obj in objects_Helm)
             num_NoHelm = sum(1 for obj in pred.names[0] if obj in objects_NoHelm)
-            
-            # Increment Helm counter
-            counter1 += num_Helm  
-            # Increment NoHelm counter
-            counter2 += num_NoHelm  
 
-            #--Display predicton
-            
+            # Increment Helm counter
+            counter1 += num_Helm
+            # Increment NoHelm counter
+            counter2 += num_NoHelm
+
+            # --Display prediction
+
             img_ = Image.open(outputpath)
             with col2:
                 st.image(img_, caption='ผลลัพธ์จากการตรวจสอบ', use_column_width='always')
