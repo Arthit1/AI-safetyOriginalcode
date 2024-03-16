@@ -8,14 +8,14 @@ from datetime import datetime
 import os
 import wget
 import time
-couter = 0
+counter = 0
 
 model = torch.hub.load('ultralytics/yolov5', 'custom', path='models/best.pt', force_reload=True) 
 image1 = Image.open('data/outputs/test1.jpg')
 image2 = Image.open('data/outputs/test2.jpg')
 image3 = Image.open('data/outputs/test3.jpg')
 def imageInput(device, src):
-    
+    global counter
     if src == 'อัปโหลดรูปภาพ':
         image_file = st.file_uploader("ตรวจสอบรูปภาพ", type=['png', 'jpeg', 'jpg'])
         col1, col2 = st.columns(2)
@@ -166,7 +166,7 @@ def main():
             st.write("ผลลัพท์การตรวจสอบ")
 
 
-    
+    st.sidebat.text(f"Total number of object detected:{counter}")
 
     
     
