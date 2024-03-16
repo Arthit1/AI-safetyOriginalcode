@@ -34,7 +34,7 @@ def imageInput(device, src):
             model.cuda() if device == 'cuda' else model.cpu()
             pred = model(imgpath)
             pred.render()  # render bbox in image
-            num_object = len(pred.xyxy[0])
+            num_objects = len(pred.xyxy[0])  # Correct variable name
             counter += num_objects
             for im in pred.ims:
                 im_base64 = Image.fromarray(im)
