@@ -166,7 +166,7 @@ def main():
             st.write("ผลลัพท์การตรวจสอบ")
 
 
-    st.sidebat.text(f"Total number of object detected:{counter}")
+    st.sidebar.text(f"Total number of object detected:{counter}")
 
     
     
