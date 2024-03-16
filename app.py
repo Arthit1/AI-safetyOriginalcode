@@ -8,6 +8,7 @@ from datetime import datetime
 import os
 import wget
 import time
+couter = 0
 
 model = torch.hub.load('ultralytics/yolov5', 'custom', path='models/best.pt', force_reload=True) 
 image1 = Image.open('data/outputs/test1.jpg')
@@ -33,6 +34,8 @@ def imageInput(device, src):
             model.cuda() if device == 'cuda' else model.cpu()
             pred = model(imgpath)
             pred.render()  # render bbox in image
+            num_object = len(pred.xyxy[0])
+            counter += num_objects
             for im in pred.ims:
                 im_base64 = Image.fromarray(im)
                 im_base64.save(outputpath)
