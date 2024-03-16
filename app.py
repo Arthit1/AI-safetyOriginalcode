@@ -52,6 +52,7 @@ def imageInput(device, src):
 
 
 def videoInput(device, src):
+    global counter
     uploaded_video = st.file_uploader("Upload Video", type=['mp4', 'mpeg', 'mov'])
     if uploaded_video != None:
 
