@@ -21,6 +21,9 @@ def imageInput(device, src):
         col1, col2 = st.columns(2)
         if image_file is not None:
             img = Image.open(image_file)
+            max_width = 800
+            max_height = 600
+            img.thumbnail((max_width, max_height), Image.ANTIALIAS)
             with col1:
                 st.image(img, caption='รูปภาพที่นำเข้ามา', use_column_width='always')
             ts = datetime.timestamp(datetime.now())
