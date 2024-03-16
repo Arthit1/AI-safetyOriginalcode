@@ -8,7 +8,8 @@ from datetime import datetime
 import os
 import wget
 import time
-counter = 0
+counter1 = 0
+counter2 = 0
 
 model = torch.hub.load('ultralytics/yolov5', 'custom', path='models/best.pt', force_reload=True) 
 image1 = Image.open('data/outputs/test1.jpg')
@@ -34,11 +35,15 @@ def imageInput(device, src):
             model.cuda() if device == 'cuda' else model.cpu()
             pred = model(imgpath)
             pred.render()  # render bbox in image
-            num_object = len(pred.xyxy[0])
-            counter += num_objects
-            for im in pred.ims:
-                im_base64 = Image.fromarray(im)
-                im_base64.save(outputpath)
+            objects_Helm = ['Helm']
+            objects_NoHelm = ['NoHelm']
+            num_Helm = sum(1 for obj in pred.names[0] if obj in objects_Helm)
+            num_NoHelm = sum(1 for obj in pred.names[0] if obj in objects_NoHelm)
+            
+            # Increment Helm counter
+            counter1 += num_Helm  
+            # Increment NoHelm counter
+            counter2 += num_NoHelm  
 
             #--Display predicton
             
