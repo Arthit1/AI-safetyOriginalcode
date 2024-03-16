@@ -171,7 +171,8 @@ def main():
             st.write("ผลลัพท์การตรวจสอบ")
 
 
-    st.sidebar.text(f"Total number of object detected:{counter}")
+    st.sidebar.text(f"จำนวนคนที่สวมใส่หมวก: {counter1}")
+    st.sidebar.text(f"จำนวนคนที่ไม่สวมใส่หมวก: {counter2}")
 
     
     
