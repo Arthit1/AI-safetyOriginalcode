@@ -28,14 +28,20 @@ def imageInput(device, src):
             with col1:
                 st.image(img, caption='รูปภาพที่นำเข้ามา', use_column_width='always')
             ts = datetime.timestamp(datetime.now())
-            imgpath = os.path.join('data/uploads', str(ts)+image_file.name)
-            outputpath = os.path.join('data/outputs', os.path.basename(imgpath))
-            with open(imgpath, mode="wb") as f:
+            
+            # Define the output directory
+            output_dir = 'data/outputs'
+            
+            # Construct the output file name using a timestamp
+            output_filename = f"{ts}_processed_{image_file.name}"
+            outputpath = os.path.join(output_dir, output_filename)
+            
+            with open(outputpath, mode="wb") as f:
                 f.write(image_file.getbuffer())
 
             # Call Model prediction--
             model.cuda() if device == 'cuda' else model.cpu()
-            pred = model(imgpath)
+            pred = model(outputpath)
             pred.render()  # render bbox in image
             objects_Helm = ['Helm']
             objects_NoHelm = ['NoHelm']
@@ -44,11 +50,10 @@ def imageInput(device, src):
             counter1 += num_Helm  # Increment Helm counter
             counter2 += num_NoHelm  # Increment NoHelm counter
 
-            #--Display predicton
-            
-            img_ = Image.open(outputpath)
+            #--Display prediction
             with col2:
-                st.image(img_, caption='ผลลัพธ์จากการตรวจสอบ', use_column_width='always')
+                st.image(Image.open(outputpath), caption='ผลลัพธ์จากการตรวจสอบ', use_column_width='always')
+
 
     
 
