@@ -16,7 +16,7 @@ image1 = Image.open('data/outputs/test1.jpg')
 image2 = Image.open('data/outputs/test2.jpg')
 image3 = Image.open('data/outputs/test3.jpg')
 def imageInput(device, src):
-    global counter1 , counter2
+    global counter1, counter2
     if src == 'อัปโหลดรูปภาพ':
         image_file = st.file_uploader("ตรวจสอบรูปภาพ", type=['png', 'jpeg', 'jpg'])
         col1, col2 = st.columns(2)
@@ -33,8 +33,7 @@ def imageInput(device, src):
             with open(imgpath, mode="wb") as f:
                 f.write(image_file.getbuffer())
 
-            #call Model prediction--
-            
+            # Call Model prediction--
             model.cuda() if device == 'cuda' else model.cpu()
             pred = model(imgpath)
             pred.render()  # render bbox in image
@@ -42,8 +41,8 @@ def imageInput(device, src):
             objects_NoHelm = ['NoHelm']
             num_Helm = sum(1 for obj in pred.names[0] if obj in objects_Helm)
             num_NoHelm = sum(1 for obj in pred.names[0] if obj in objects_NoHelm)
-            counter1 += objects_Helm  # Increment person counter
-            counter2 += objects_NoHelm  # Increment car counter
+            counter1 += num_Helm  # Increment Helm counter
+            counter2 += num_NoHelm  # Increment NoHelm counter
 
             #--Display predicton
             
