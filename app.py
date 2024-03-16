@@ -38,15 +38,12 @@ def imageInput(device, src):
             model.cuda() if device == 'cuda' else model.cpu()
             pred = model(imgpath)
             pred.render()  # render bbox in image
-            if len(pred.xyxy) > 0:
-                num_objects1 = len(pred.xyxy[0])  # Count of first type of result
-                counter1 += num_objects1
-            if len(pred.xyxy) > 1:
-                num_objects2 = len(pred.xyxy[1])  # Count of second type of result
-                counter2 += num_objects2
-            for im in pred.ims:
-                im_base64 = Image.fromarray(im)
-                im_base64.save(outputpath)
+            objects_Helm = ['Helm']
+            objects_NoHelm = ['NoHelm']
+            num_Helm = sum(1 for obj in pred.names[0] if obj in objects_Helm)
+            num_NoHelm = sum(1 for obj in pred.names[0] if obj in objects_NoHelm)
+            counter1 += objects_Helm  # Increment person counter
+            counter2 += objects_NoHelm  # Increment car counter
 
             #--Display predicton
             
