@@ -16,7 +16,7 @@ image1 = Image.open('data/outputs/test1.jpg')
 image2 = Image.open('data/outputs/test2.jpg')
 image3 = Image.open('data/outputs/test3.jpg')
 def imageInput(device, src):
-    global counter
+    global counter1 , counter2
     if src == 'อัปโหลดรูปภาพ':
         image_file = st.file_uploader("ตรวจสอบรูปภาพ", type=['png', 'jpeg', 'jpg'])
         col1, col2 = st.columns(2)
