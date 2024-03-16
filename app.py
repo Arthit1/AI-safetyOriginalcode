@@ -26,7 +26,7 @@ def imageInput(device, src):
                 st.image(img, caption='รูปภาพที่นำเข้ามา', use_column_width='always')
             ts = datetime.timestamp(datetime.now())
             imgpath = os.path.join('data/uploads', str(ts) + image_file.name)
-            outputdir = 'data/outputs'  # Specify the output directory
+            outputdir = os.path.join(os.getcwd(), 'data/outputs')  # Specify the output directory
             os.makedirs(outputdir, exist_ok=True)  # Ensure the output directory exists
             outputpath = os.path.join(outputdir, os.path.basename(imgpath))
             with open(imgpath, mode="wb") as f:
