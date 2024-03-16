@@ -23,7 +23,7 @@ def imageInput(device, src):
             img = Image.open(image_file)
             max_width = 800
             max_height = 600
-            img.thumbnail((max_width, max_height), Image.ANTIALIAS)
+            img.thumbnail((max_width, max_height))
             with col1:
                 st.image(img, caption='รูปภาพที่นำเข้ามา', use_column_width='always')
             ts = datetime.timestamp(datetime.now())
