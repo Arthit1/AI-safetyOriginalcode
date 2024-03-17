@@ -178,6 +178,7 @@ def main():
 
 
     st.sidebar.text(f"Object Detect Count:{counter1}")
+    st.sidebar.text(f"Head Detect Count:{0}")
         
     
 
