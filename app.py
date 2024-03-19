@@ -177,8 +177,8 @@ def main():
     #         st.write("ผลลัพท์การตรวจสอบ")
 
 
-    st.sidebar.text(f"Helmet Detect Count:{counter1}")
-    st.sidebar.text(f"Head Detect Count:{0}")
+    st.sidebar.text(f"Helmet Detect Count:{0}")
+    st.sidebar.text(f"Head Detect Count:{counter1}")
         
     
 
